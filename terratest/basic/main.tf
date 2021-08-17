@@ -1,44 +1,13 @@
-Terraform module which creates SCDN domain and its config on Alibaba Cloud.
-terraform-alicloud-scdn
-=====================================================================
-
-English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-scdn/blob/master/README-CN.md)
-
-Terraform module which creates SCDN domain and sets its configs on Alibaba Cloud.
-
-These types of resources are supported:
-
-* [SCDN Domain](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/scdn_domain)
-* [SCDN Domain Config](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/scdn_domain_config)
-
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.131.0 |
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | >= 1.131.0 |
-
-
-## Usage
-
-```hcl
+resource "alicloud_resource_manager_resource_group" "this" {
+  display_name        = "for-terraform-test"
+  resource_group_name = "terratest"
+}
 module "scdn" {
-  source        = "terraform-alicloud-modules/scdn/alicloud"
+  source        = "../../"
   create_domain = true
-  domain_name   = "xxx.xiaozhu.com"
-  sources = {
-    content  = "1.1.1.1"
-    port     = "80"
-    priority = "20"
-    type     = "ipaddr"
-  }
-
+  domain_name   = var.domain_name
+  check_url     = var.check_url
+  sources       = var.sources
   cert_infos = {
     cert_name = "tf-testacc"
     cert_type = "upload"
@@ -88,9 +57,8 @@ BAUGBw==
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtiSuNuReMhT4Zx/cFWGT6ka+q8gNz0g828pijFEjt2sQrcoEKrzF0s+x8hMYFYiMqj+yt4fUQ33S1yv4HlJQmUhJHPXva54tKUFJAZmAa6wzQJHD/m0qBaDp8OkUHhBWPk6qC5oD3u3alQZLOE1FLMwybaVk5pcnXFlmkcFz0mCIIUnK62I5NqJPO9QYseqb8QgTlXm1q732Lw2/koQeNn2Phyw2lrkoEN6GEyctM32eERq2OYPiAeHqdLvW39jzS+2eYeKW5XsF8Hnamqm4QqyD+TFXp0NpoLT4FMaRyos3qJcw3PM8FLF6Mcm651TSGU4uUoJGecyr4VzU3lziJcFlYkCOntr2Tnt/jmgnFp74HJX49FpHpDPI+Ta799S6hhzbQUBsWu9fnpi5h+8jIzGgWIEVEjoEhiTk4LJiWStQJ02u7dc8ZskhtgTx9GWfq6y/zBLaW5NnNiEk3GaB1A+ytuJkKHsnFW2Ve2dsEw32iZfKUfXyO1kq6gqjE5r8= heguimin@heguimindeMacBook-Pro.local
     EOF
   }
-  
   status        = "online"
-
+  //  domain_configs = var.domain_configs
   domain_configs = [
     {
       function_name = "ip_allow_list_set"
@@ -116,32 +84,3 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtiSuNuReMhT4Zx/cFWGT6ka+q8gNz0g828pijFEjt
     }
   ]
 }
-```
-
-## Notes
-
-* This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`.
-  If you have not set them yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
-
-Submit Issues
--------------
-If you have any problems when using this module, please opening a [provider issue](https://github.com/aliyun/terraform-provider-alicloud/issues/new) and let us know.
-
-**Note:** There does not recommend to open an issue on this repo.
-
-Authors
--------
-Created and maintained by He Guimin(@xiaozhu36, heguimin36@163.com)
-
-License
-----
-Apache 2 Licensed. See LICENSE for full details.
-
-Reference
----------
-* [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
-* [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
-* [Terraform-Provider-Alicloud Docs](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs)
-
-
-
