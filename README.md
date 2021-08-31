@@ -118,11 +118,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtiSuNuReMhT4Zx/cFWGT6ka+q8gNz0g828pijFEjt
 }
 ```
 
-## Notes
-
-* This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`.
-  If you have not set them yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
-
 Submit Issues
 -------------
 If you have any problems when using this module, please opening a [provider issue](https://github.com/aliyun/terraform-provider-alicloud/issues/new) and let us know.
