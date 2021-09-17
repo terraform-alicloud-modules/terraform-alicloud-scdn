@@ -123,7 +123,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtiSuNuReMhT4Zx/cFWGT6ka+q8gNz0g828pijFEjt
 
 作者
 -------
-Created and maintained by He Guimin(@xiaozhu36, heguimin36@163.com)
+Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 许可
 ----
