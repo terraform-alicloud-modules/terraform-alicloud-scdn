@@ -1,13 +1,12 @@
 terraform-alicloud-scdn
 =====================================================================
 
-
-本 Module 用于在阿里云的 VPC 下创建一个[全站加速域名（SCDN Domain）](https://help.aliyun.com/product/63560.html). 
+本 Module 用于在阿里云的 VPC 下创建一个[安全加速域名（SCDN Domain）](https://help.aliyun.com/product/63560.html). 
 
 本 Module 支持创建以下资源:
 
-* [全站加速域名（SCDN Domain）](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/scdn_domain)
-* [全站加速域名配置（SCDN Domain Config）](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/scdn_domain_config)
+* [安全加速域名（SCDN Domain）](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/scdn_domain)
+* [安全加速域名配置（SCDN Domain Config）](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/scdn_domain_config)
 
 ## 版本要求
 
@@ -123,7 +122,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtiSuNuReMhT4Zx/cFWGT6ka+q8gNz0g828pijFEjt
 
 作者
 -------
-Created and maintained by He Guimin(@xiaozhu36, heguimin36@163.com)
+Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 许可
 ----
@@ -134,5 +133,3 @@ Apache 2 Licensed. See LICENSE for full details.
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs)
-
-

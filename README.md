@@ -4,7 +4,7 @@ terraform-alicloud-scdn
 
 English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-scdn/blob/master/README-CN.md)
 
-Terraform module which creates SCDN domain and sets its configs on Alibaba Cloud.
+Terraform module which creates SCDN domain and sets its config on Alibaba Cloud.
 
 These types of resources are supported:
 
@@ -23,7 +23,6 @@ These types of resources are supported:
 | Name | Version |
 |------|---------|
 | <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | >= 1.131.0 |
-
 
 ## Usage
 
@@ -126,7 +125,7 @@ If you have any problems when using this module, please opening a [provider issu
 
 Authors
 -------
-Created and maintained by He Guimin(@xiaozhu36, heguimin36@163.com)
+Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 License
 ----
@@ -137,6 +136,3 @@ Reference
 * [Terraform-Provider-Alicloud Github](https://github.com/aliyun/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs)
-
-
-
