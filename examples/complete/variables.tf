@@ -1,18 +1,29 @@
-resource "alicloud_resource_manager_resource_group" "this" {
-  display_name        = "for-terraform-test"
-  resource_group_name = "terratest"
+# SCDN Domain variables
+variable "biz_name" {
+  description = "from the Business Type Drop-down List. Valid values: download, image, scdn, video."
+  type        = string
+  default     = "download"
 }
-module "scdn" {
-  source        = "../../"
-  create_domain = true
-  domain_name   = var.domain_name
-  check_url     = var.check_url
-  sources       = var.sources
-  cert_infos = {
-    cert_name    = "tf-testacc"
+
+variable "sources" {
+  description = "The origin information."
+  type        = map(string)
+  default = {
+    content  = "1.1.1.1"
+    enabled  = "online"
+    port     = 80
+    priority = "20"
+    type     = "ipaddr"
+  }
+}
+
+variable "cert_infos" {
+  description = "Certificate Information."
+  type        = map(string)
+  default = {
+    cert_name    = "tf-testacc-cert"
     cert_type    = "upload"
     ssl_pri      = <<EOF
------BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
 NhAAAAAwEAAQAAAYEA7YkrjbkXjIU+Gcf3BVhk+pGvqvIDc9IPNvKYoxRI7drEK3KBCq8x
 dLPsfITGBWIjKo/sreH1EN90tcr+B5SUJlISRz172ueLSlBSQGZgGusM0CRw/5tKgWg6fD
@@ -50,37 +61,36 @@ Fy1YxaGEq64sjkX1Co40A7TP7PV0hUByKgHx6kDyeIAVmj6wfwdc66yhUpfKi2OxgfkRf1
 emaJdUJQZT4gT41iA/q3SdunE3aQRpcAVhArzZGtVIQccdwehlbBWI5u3sFYnUFe1EnCtX
 PkTbi07ETEgFsAAAAkaGVndWltaW5AaGVndWltaW5kZU1hY0Jvb2stUHJvLmxvY2FsAQID
 BAUGBw==
------END OPENSSH PRIVATE KEY-----
     EOF
     ssl_protocol = "on"
     ssl_pub      = <<EOF
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtiSuNuReMhT4Zx/cFWGT6ka+q8gNz0g828pijFEjt2sQrcoEKrzF0s+x8hMYFYiMqj+yt4fUQ33S1yv4HlJQmUhJHPXva54tKUFJAZmAa6wzQJHD/m0qBaDp8OkUHhBWPk6qC5oD3u3alQZLOE1FLMwybaVk5pcnXFlmkcFz0mCIIUnK62I5NqJPO9QYseqb8QgTlXm1q732Lw2/koQeNn2Phyw2lrkoEN6GEyctM32eERq2OYPiAeHqdLvW39jzS+2eYeKW5XsF8Hnamqm4QqyD+TFXp0NpoLT4FMaRyos3qJcw3PM8FLF6Mcm651TSGU4uUoJGecyr4VzU3lziJcFlYkCOntr2Tnt/jmgnFp74HJX49FpHpDPI+Ta799S6hhzbQUBsWu9fnpi5h+8jIzGgWIEVEjoEhiTk4LJiWStQJ02u7dc8ZskhtgTx9GWfq6y/zBLaW5NnNiEk3GaB1A+ytuJkKHsnFW2Ve2dsEw32iZfKUfXyO1kq6gqjE5r8= heguimin@heguimindeMacBook-Pro.local
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDtiSuNuReMhT4Zx/cFWGT6ka+q8gNz0g
+828pijFEjt2sQrcoEKrzF0s+x8hMYFYiMqj+yt4fUQ33S1yv4HlJQmUhJHPXva54tKUFJA
+ZmAa6wzQJHD/m0qBaDp8OkUHhBWPk6qC5oD3u3alQZLOE1FLMwybaVk5pcnXFlmkcFz0mC
+IIUnK62I5NqJPO9QYseqb8QgTlXm1q732Lw2/koQeNn2Phyw2lrkoEN6GEyctM32eERq2O
+YPiAeHqdLvW39jzS+2eYeKW5XsF8Hnamqm4QqyD+TFXp0NpoLT4FMaRyos3qJcw3PM8FLF
+6Mcm651TSGU4uUoJGecyr4VzU3lziJcFlYkCOntr2Tnt/jmgnFp74HJX49FpHpDPI+Ta79
+9S6hhzbQUBsWu9fnpi5h+8jIzGgWIEVEjoEhiTk4LJiWStQJ02u7dc8ZskhtgTx9GWfq6y
+/zBLaW5NnNiEk3GaB1A+ytuJkKHsnFW2Ve2dsEw32iZfKUfXyO1kq6gqjE5r8= heguimi
+n@heguimindeMacBook-Pro.local
     EOF
   }
-  status = "online"
-  //  domain_configs = var.domain_configs
-  domain_configs = [
+}
+
+variable "status" {
+  description = "The domain status. Valid values: online, offline."
+  type        = string
+  default     = "online"
+}
+
+# SCDN Domain config variables
+variable "function_args" {
+  description = "The args of the domain config."
+  type        = list(map(string))
+  default = [
     {
-      function_name = "ip_allow_list_set"
-      function_args = [
-        {
-          arg_name  = "ip_list"
-          arg_value = "110.110.110.110"
-        }
-      ]
-    },
-    {
-      function_name = "filetype_based_ttl_set"
-      function_args = [
-        {
-          arg_name  = "ttl"
-          arg_value = "300"
-        },
-        {
-          arg_name  = "file_type"
-          arg_value = "jpg"
-        }
-      ]
+      arg_name  = "ip_list"
+      arg_value = "110.110.110.110"
     }
   ]
 }
